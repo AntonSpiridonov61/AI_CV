@@ -15,7 +15,7 @@ def detector(img, classifier, classifier2, scaleFactor=None, minNeighbors=None):
 
     for (x, y, w, h) in rects:
         faces = result[y:y + h, x:x + w]
-        cv2.rectangle(result, (x, y), (x+w, y+h), (255, 255, 255))
+        # cv2.rectangle(result, (x, y), (x+w, y+h), (255, 255, 255))
 
 
         rects_eye = classifier2.detectMultiScale(
@@ -63,19 +63,19 @@ eye_classifier = cv2.CascadeClassifier(eye_cascade)
 # plt.imshow(result)
 # plt.show()
 
-# cam = cv2.VideoCapture(1)
-# cv2.namedWindow("Camera", cv2.WINDOW_KEEPRATIO)
+cam = cv2.VideoCapture(1)
+cv2.namedWindow("Camera", cv2.WINDOW_KEEPRATIO)
 
-# while cam.isOpened():
-#     _, image = cam.read()
-#     image = cv2.flip(image, 1)
+while cam.isOpened():
+    _, image = cam.read()
+    image = cv2.flip(image, 1)
 
-#     result = detector(image, face_classifier, eye_classifier, 1.1, 12)
+    result = detector(image, face_classifier, eye_classifier, 1.1, 12)
 
-#     cv2.imshow("Camera", result)
-#     key = cv2.waitKey(1)
-#     if key == ord('q'):
-#         break
+    cv2.imshow("Camera", result)
+    key = cv2.waitKey(1)
+    if key == ord('q'):
+        break
 
-# cam.release()
-# cv2.destroyAllWindows()
+cam.release()
+cv2.destroyAllWindows()
